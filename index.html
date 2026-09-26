@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Lewis &amp; Short Lexicon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+/* ===== Latin Site theme v1 ===== */
+:root{
+  color-scheme:light;
+  --bg:#F5F1EA; --surface:#FDFCF8; --surface2:#EFE9DF;
+  --ink:#2A2521; --muted:#6F665D; --faint:#978C80; --rule:#E2DACD; --rule2:#D3C8B8;
+  --accent:#7F2E22; --accent-ink:#FFFFFF; --accent-soft:#F1E1DC;
+  --mark:#9C5F0E; --mark-bg:#F5E6C8;
+  --good:#3D6B3F; --good-bg:#DDEBDC;
+  --warn:#C42A2F; --warn-bg:#FBE1DE;
+  --serif:"Gentium Book Plus","Palatino Linotype",Palatino,"Book Antiqua","URW Palladio L",P052,Georgia,serif;
+  --shadow:0 6px 24px rgba(80,60,40,.08),0 1px 2px rgba(80,60,40,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#1A1613; --surface:#231E1A; --surface2:#2D2722;
+    --ink:#EDE6DA; --muted:#B5AA9C; --faint:#8C8174; --rule:#3A322B; --rule2:#4A4037;
+    --accent:#E0907C; --accent-ink:#1A1613; --accent-soft:#3B2520;
+    --mark:#E3AE5B; --mark-bg:#3A2E1B;
+    --good:#8CC48E; --good-bg:#223326;
+    --warn:#F2837B; --warn-bg:#3D1F1D;
+    --shadow:0 6px 24px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#1A1613; --surface:#231E1A; --surface2:#2D2722;
+  --ink:#EDE6DA; --muted:#B5AA9C; --faint:#8C8174; --rule:#3A322B; --rule2:#4A4037;
+  --accent:#E0907C; --accent-ink:#1A1613; --accent-soft:#3B2520;
+  --mark:#E3AE5B; --mark-bg:#3A2E1B;
+  --good:#8CC48E; --good-bg:#223326;
+  --warn:#F2837B; --warn-bg:#3D1F1D;
+  --shadow:0 6px 24px rgba(0,0,0,.35),0 1px 2px rgba(0,0,0,.4);
+}
+/* ===== end theme ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;height:100%;padding-block:18px 14px;gap:14px}
+.sc{font-variant:small-caps;text-transform:lowercase;letter-spacing:.12em;color:var(--muted)}
+
+header{display:grid;gap:2px;justify-items:center;text-align:center;padding-block:4px 2px}
+h1{font-family:var(--serif);font-size:clamp(28px,4.2vw,38px);font-weight:700;letter-spacing:.01em;margin:0;line-height:1.15;text-wrap:balance}
+h1 .yr{font-weight:400;color:var(--muted)}
+.src{font-size:15px}
+
+.search{position:relative;max-width:760px;width:100%;margin-inline:auto}
+.search input{width:100%;font:400 21px/1.3 var(--serif);color:var(--ink);background:var(--surface);
+  border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px 14px 50px;outline:none}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:var(--faint);font-style:italic}
+.search input{color-scheme:inherit}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft),var(--shadow)}
+.search svg{position:absolute;left:18px;top:19px;width:20px;height:20px;color:var(--accent)}
+.qbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 14px;margin-top:10px}
+.mkeys{display:inline-flex;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.mkeys button{font:400 19px/1 var(--serif);color:var(--ink);background:transparent;border:0;border-left:1px solid var(--rule);padding:8px 14px;cursor:pointer;min-width:44px}
+.mkeys button:first-child{border-left:0}
+.mkeys button:hover{background:var(--surface2);color:var(--accent)}
+.mkeys button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.chip.mode{font-size:15px;padding:7px 12px}
+.chip.mode::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--rule2);margin-right:7px;vertical-align:1px}
+.chip.mode[aria-pressed="true"]::before{background:var(--accent-ink)}
+.loose{font-size:14px;font-style:italic;color:var(--muted);padding:10px 18px 2px;line-height:1.4}
+.formnote .qf{color:var(--ink);margin-right:4px}
+.hint{font-size:15px;color:var(--muted);margin-top:8px;text-align:center}
+.hint kbd{font-family:var(--serif);font-size:14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:0 6px}
+
+.main{display:grid;grid-template-columns:320px 1fr;gap:18px;flex:1;min-height:0}
+.results{background:var(--surface);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);overflow:auto;min-height:0}
+.results .count{font-size:15px;padding:12px 18px 8px;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--surface);z-index:1}
+.results ol{list-style:none;margin:0;padding:4px 0 8px}
+.results button{all:unset;display:block;width:100%;box-sizing:border-box;padding:8px 18px;cursor:pointer;border-left:3px solid transparent}
+.results button:hover{background:var(--surface2)}
+.results button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.results button[aria-current="true"]{background:var(--accent-soft);border-left-color:var(--accent)}
+.hw{font-size:20px;font-weight:700}
+.hw sup{font-size:.6em;color:var(--mark);margin-left:1px;font-weight:400}
+.gl{display:block;font-size:15px;font-style:italic;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.results h2{font-weight:400;font-size:15px;margin:0;padding:12px 18px 4px;font-variant:small-caps;text-transform:lowercase;letter-spacing:.12em;color:var(--muted)}
+.results li + li.sec h2{border-top:1px solid var(--rule);margin-top:6px}
+.parse{display:block;font-size:15px;color:var(--mark)}
+.empty{padding:16px 18px;color:var(--muted);font-size:16px;line-height:1.5}
+
+article{background:var(--surface);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);overflow:auto;min-height:0;padding:20px 30px 44px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+.tools .sp{flex:1}
+#eid{font-size:14px}
+.chip{font:400 16px/1.2 var(--serif);color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:8px 14px;cursor:pointer;transition:background .15s,color .15s}
+.chip:hover{background:var(--surface2)}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.entry{font-size:18px;line-height:1.65;max-width:74ch}
+.entry p{margin:0 0 .75em}
+.entry .s0 > b:first-child{font-size:32px;color:var(--accent);font-weight:700;line-height:1.1}
+.entry b{font-weight:700}
+.entry .s2{margin-left:1.4em}
+.entry .s3{margin-left:2.8em}
+.entry .s4{margin-left:4.2em}
+.entry .s5{margin-left:5.6em}
+.entry .n{font-weight:700;color:var(--accent)}
+.entry em.g{font-style:normal;font-variant:small-caps;letter-spacing:.04em;color:var(--mark)}
+.entry i{font-style:italic;font-weight:700}
+.entry .l{font-style:italic}
+.entry cite{font-style:normal;font-size:.8em;color:var(--faint);white-space:nowrap}
+.entry cite .a{font-variant:small-caps;letter-spacing:.04em;color:var(--muted)}
+.entry .t{font-weight:700}
+.entry .gk{color:var(--muted)}
+.entry .et{color:var(--muted)}
+.entry .u{font-variant:small-caps;letter-spacing:.04em;color:var(--mark)}
+.ab{text-decoration:underline dotted;text-decoration-color:var(--faint);text-underline-offset:3px;cursor:help}
+.ab:hover,.ab:focus-visible{text-decoration-color:var(--accent);outline:none;color:var(--accent)}
+#abtip{position:fixed;z-index:50;background:var(--ink);color:var(--bg);font:15px/1.4 var(--serif);padding:8px 12px;border-radius:10px;box-shadow:var(--shadow);pointer-events:none}
+#abtip b{color:var(--bg);margin-right:4px}
+#hidewrap{display:inline-flex;align-items:center;gap:8px}
+#hidewrap[hidden],#eid[hidden]{display:none}
+.focus{display:grid;gap:10px}
+.focus .fhead{margin:0 0 6px;font-size:18px}
+.focus .fhead b{font-size:32px;color:var(--accent);font-weight:700}
+.focus .fhead .g,.focus .dw + .g{font-variant:small-caps;letter-spacing:.04em;color:var(--mark)}
+.focus .f{margin:0;line-height:1.5}
+.focus .f.l2{margin-left:1.4em}.focus .f.l3{margin-left:2.8em}.focus .f.l4{margin-left:4.2em}.focus .f.l5{margin-left:5.6em}
+.focus .ctx{font-style:italic;color:var(--muted)}
+.focus .dash{color:var(--faint)}
+.focus .m{font-weight:700}
+.focus .dw{color:var(--accent)}
+.fnote{font-size:15px;color:var(--muted);font-style:italic;border-top:1px solid var(--rule);padding-top:10px}
+.entry.hide-cites cite,.entry.hide-cites .pc{display:none}
+.entry.hide-ex .cit,.entry.hide-ex .l{display:none}
+.entry.hide-et .et{display:none}
+.entry.hide-af .af{display:none}
+.entry.hide-gk .gk,.entry.hide-gk .pg{display:none}
+.hide-lab{font-size:15px;margin-right:2px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg .chip{border:0;border-radius:0;border-left:1px solid var(--rule)}
+.seg .chip:first-child{border-left:0}
+.entry b.target{background:var(--mark-bg);box-shadow:0 0 0 4px var(--mark-bg);border-radius:3px;color:var(--accent)}
+.formnote{font-size:17px;line-height:1.5;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 16px;margin:0 0 18px}
+.formnote b{color:var(--accent)}
+.formnote ul{margin:4px 0 0;padding-left:1.2em}
+.formnote li{color:var(--muted)}
+.loading{color:var(--muted);font-style:italic}
+
+footer{border-top:1px solid var(--rule);padding-top:10px;font-size:14px;color:var(--muted);line-height:1.45}
+footer a{color:var(--accent)}
+
+@media (max-width:780px){
+  .wrap{height:auto}
+  .main{grid-template-columns:1fr}
+  .results{max-height:42vh}
+  article{padding:16px 16px 30px}
+  .focus .f.l2{margin-left:.8em}.focus .f.l3{margin-left:1.6em}.focus .f.l4{margin-left:2.4em}.focus .f.l5{margin-left:3.2em}
+  .entry .s2{margin-left:.8em}.entry .s3{margin-left:1.6em}.entry .s4{margin-left:2.4em}.entry .s5{margin-left:3.2em}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Lewis &amp; Short <span class="yr">1879</span></h1>
+    <span class="src sc" id="stat" hidden>loading headwords…</span>
+  </header>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Type any Latin word: tulit, puellae, Rōmānōrum…" aria-label="Search for a Latin word" value="tulit">
+    <div class="qbar">
+      <div class="mkeys" role="group" aria-label="Type a long vowel">
+        <button type="button" data-v="ā" title="Type ā (or type a then =)">ā</button><button type="button" data-v="ē" title="Type ē (or type e then =)">ē</button><button type="button" data-v="ī" title="Type ī (or type i then =)">ī</button><button type="button" data-v="ō" title="Type ō (or type o then =)">ō</button><button type="button" data-v="ū" title="Type ū (or type u then =)">ū</button>
+      </div>
+      <button type="button" class="chip mode" id="macmode" aria-pressed="true" title="On: puella and puellā are different forms. Off: macrons are ignored, as in most printed texts.">Macron Sensitive</button>
+    </div>
+    <div class="hint" id="hint"></div>
+  </div>
+
+  <div class="main">
+    <nav class="results" aria-label="Matching words">
+      <div class="count sc" id="count">&nbsp;</div>
+      <ol id="list"></ol>
+    </nav>
+    <article>
+      <div class="tools">
+        <div class="seg" id="view" role="group" aria-label="How much of the entry to show">
+          <button class="chip" type="button" data-view="full" aria-pressed="true" title="The complete Lewis &amp; Short entry">Full entry</button>
+          <button class="chip" type="button" data-view="focus" aria-pressed="false" title="Just the meanings, and when each one applies">Focus</button>
+        </div>
+        <span id="hidewrap">
+        <span class="sc hide-lab">hide</span>
+        <div class="seg" id="hide" role="group" aria-label="Hide parts of the entry">
+          <button class="chip" type="button" data-hide="cites" aria-pressed="false" title="References like Cic. Att. 6, 1">Citations</button>
+          <button class="chip" type="button" data-hide="ex" aria-pressed="false" title="Quoted Latin passages with their references">Examples</button>
+          <button class="chip" type="button" data-hide="af" aria-pressed="false" title="Archaic, rare and alternate forms and spellings">Alt. forms</button>
+          <button class="chip" type="button" data-hide="et" aria-pressed="false" title="Word origins: Sanskrit, Greek, Germanic cognates">Etymology</button>
+          <button class="chip" type="button" data-hide="gk" aria-pressed="false" title="Greek words">Greek</button>
+        </div>
+        </span>
+        <span class="sp"></span>
+        <span id="eid" class="sc"></span>
+      </div>
+      <div class="entry" id="entry"><p class="loading">Loading…</p></div>
+    </article>
+  </div>
+
+  <footer>Text: Charlton T. Lewis and Charles Short, <i>A Latin Dictionary</i> (Oxford: Clarendon Press, 1879), digitized by the Perseus Project, Tufts University (CC BY-SA). Form lookup is generated from the dictionary's principal parts and can occasionally suggest a form that does not exist.</footer>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const q = $('#q'), list = $('#list'), entryEl = $('#entry'), countEl = $('#count');
+  let INDEX = [], BYID = new Map(), HEADSET = new Set();   // INDEX row: [display, norm, id, gloss, homograph, letter]
+  let M = null;                        // morphology: {L,S,E,X,T}
+  const letters = {};
+  let shown = [], sel = -1, currentId = null, currentForm = null;
+
+  function norm(s){
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+      .replace(/j/g,'i').replace(/v/g,'u').replace(/æ/g,'ae').replace(/œ/g,'oe').replace(/[^a-z]/g,'');
+  }
+  const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function loadLetter(l){
+    if(!letters[l]) letters[l] = fetch('data/' + l + '.json').then(r => {
+      if(!r.ok) throw new Error('HTTP ' + r.status); return r.json();
+    }).catch(e => { delete letters[l]; throw e; });
+    return letters[l];
+  }
+
+  // ---------- morphology: stem + ending analysis ----------
+  const ASSIM = [["adsp","asp"],["asp","adsp"],["adf","aff"],["aff","adf"],["adl","all"],["all","adl"],["adp","app"],["app","adp"],
+    ["adc","acc"],["acc","adc"],["adt","att"],["att","adt"],["adg","agg"],["agg","adg"],["adr","arr"],["arr","adr"],["ads","ass"],["ass","ads"],
+    ["conl","coll"],["coll","conl"],["conr","corr"],["corr","conr"],["conm","comm"],["comm","conm"],["inl","ill"],["ill","inl"],
+    ["inm","imm"],["imm","inm"],["inr","irr"],["irr","inr"],["inp","imp"],["imp","inp"],["obf","off"],["off","obf"],["obp","opp"],["opp","obp"],
+    ["subf","suff"],["suff","subf"],["subm","summ"],["summ","subm"],["subp","supp"],["supp","subp"],["exf","eff"],["eff","exf"],["quot","cot"],["cot","quot"]];
+  // ---------- vowel quantity ----------
+  let MACRONS = true;   // macron-sensitive mode
+  try{ MACRONS = localStorage.getItem('ls-macrons') !== 'off'; }catch(_){}
+  const MAC = {a:'ā',e:'ē',i:'ī',o:'ō',u:'ū',y:'ȳ',A:'Ā',E:'Ē',I:'Ī',O:'Ō',U:'Ū',Y:'Ȳ'};
+  // split what the student typed into letters: n = normalised letter, ch = letter as typed, long = has a macron
+  function tokenize(raw){
+    const toks = [];
+    for(const c of raw.normalize('NFD')){
+      if(c === '̄'){ if(toks.length) toks[toks.length - 1].long = true; continue; }
+      if(/[̀-ͯ]/.test(c)) continue;
+      const parts = {'æ':'ae','Æ':'Ae','œ':'oe','Œ':'Oe'}[c] || c;
+      for(const ch of parts){
+        let n = ch.toLowerCase(); if(n === 'j') n = 'i'; if(n === 'v') n = 'u';
+        if(n >= 'a' && n <= 'z') toks.push({n, ch, long:false});
+      }
+    }
+    return toks;
+  }
+  const hasLong = toks => toks.some(t => t.long);
+  // pattern chars: L long (strict) · l long (lenient) · S/s short · ? unknown
+  function fits(pat, toks, from){
+    if(!toks) return true;
+    for(let k = 0; k < pat.length; k++){
+      const c = pat[k], t = toks[from + k]; if(!t) return false;
+      if(c === 'L' && !t.long) return false;
+      if((c === 'S' || c === 's') && t.long) return false;
+    }
+    return true;
+  }
+  function spell(pat, toks){
+    return toks.map((t, k) => (pat[k] === 'L' || pat[k] === 'l' || t.long) && MAC[t.ch] ? MAC[t.ch] : t.ch).join('');
+  }
+  function analyzeRaw(f, toks, strict){
+    const out = [];
+    const chk = strict ? toks : null;
+    for(const [li, lab, xq] of (M.X[f] || [])){
+      const pat = xq || '?'.repeat(f.length);
+      if(fits(pat, chk, 0)) out.push({li, lab, pat});
+    }
+    for(let i = 1; i <= f.length; i++){
+      const st = M.S[f.slice(0, i)]; if(!st) continue;
+      const end = f.slice(i);
+      for(const [li, type, sq] of st){
+        const labs = M.E[type] && M.E[type][end]; if(!labs) continue;
+        const sp = sq || '?'.repeat(i);
+        if(chk && !fits(sp, chk, 0)) continue;
+        for(const [lab, eq] of labs){
+          const ep = eq || '?'.repeat(end.length);
+          if(chk && !fits(ep, chk, i)) continue;
+          out.push({li, lab, pat: sp + ep});
+        }
+      }
+    }
+    return out;
+  }
+  // [{li, groups:[{form, labels}], note, loose}] — grouped by lemma, most substantial entry first
+  function analyze(toks){
+    if(!M || !toks.length) return [];
+    const f = toks.map(t => t.n).join('');
+    const tries = [[f, toks, '']];
+    for(const c of ['que','ne','ue']) if(f.endsWith(c) && f.length > c.length + 1)
+      tries.push([f.slice(0, -c.length), toks.slice(0, -c.length), ' + -' + (c === 'ue' ? 've' : c)]);
+    for(const [a, b] of ASSIM) if(f.startsWith(a)){
+      const nt = [...b].map(ch => ({n:ch, ch, long:false})).concat(toks.slice(a.length));
+      tries.push([b + f.slice(a.length), nt, ' (spelled ' + b + '…)']);
+    }
+    let res = [], note = '', used = toks, loose = false;
+    const run = strict => { for(const [ff, tt, nn] of tries){ const r = analyzeRaw(ff, tt, strict); if(r.length){ res = r; note = nn; used = tt; return true; } } return false; };
+    if(!(MACRONS ? run(true) : false)){ if(run(false) && MACRONS) loose = true; }
+    const by = new Map();
+    for(const {li, lab, pat} of res){
+      if(!by.has(li)) by.set(li, new Map());
+      const form = spell(pat, used), g = by.get(li);
+      if(!g.has(form)) g.set(form, []);
+      const t = M.T[lab]; if(!g.get(form).includes(t)) g.get(form).push(t);
+    }
+    return [...by.entries()].map(([li, g]) => ({li, groups:[...g.entries()].map(([form, labels]) => ({form, labels})), note, loose}))
+      .sort((a, b) => M.L[b.li][3] - M.L[a.li][3]).slice(0, 12);
+  }
+  // quantity marks on a headword as printed by L&S (macron = long, breve = short), lenient check against input
+  function headFits(disp, toks){
+    const pat = [];
+    for(const c of disp.normalize('NFD')){
+      if(c === '̄'){ if(pat.length) pat[pat.length - 1] = 'l'; continue; }
+      if(c === '̆'){ if(pat.length) pat[pat.length - 1] = 's'; continue; }
+      if(/[̀-ͯ]/.test(c)) continue;
+      for(const ch of ({'æ':'ae','œ':'oe'}[c.toLowerCase()] || c)) if(/[a-z]/i.test(ch)) pat.push('?');
+    }
+    return pat.length !== toks.length || fits(pat.join(''), toks, 0);
+  }
+
+  // ---------- search ----------
+  function search(raw){
+    const toks = tokenize(raw.trim());
+    const k = toks.map(t => t.n).join('');
+    if(!k) return [];
+    const typedLong = MACRONS && hasLong(toks);
+    let exact = [], prefix = [];
+    for(const row of INDEX){
+      const n = row[1];
+      if(n === k){ if(!typedLong || headFits(row[0], toks)) exact.push({row, kind:'head'}); }
+      else if(prefix.length < 120 && n.startsWith(k)) prefix.push({row, kind:'prefix'});
+    }
+    prefix.sort((a,b) => a.row[1].length - b.row[1].length || a.row[1].localeCompare(b.row[1]));
+    const isSub = x => x.row[2].includes('.') || x.row[3].startsWith('variant');
+    exact.sort((a,b) => isSub(a) - isSub(b));
+    const byEid = new Map(exact.map(x => [x.row[2], x]));
+    const forms = [];
+    LOOSE = false;
+    for(const a of analyze(toks)){
+      if(a.loose) LOOSE = true;
+      const [eid] = M.L[a.li];
+      const ex = byEid.get(eid);
+      if(ex){ ex.groups = a.groups; ex.note = a.note; ex.form = raw.trim(); continue; }
+      const row = BYID.get(eid); if(!row) continue;
+      forms.push({row, kind:'form', groups:a.groups, note:a.note, form: raw.trim()});
+    }
+    // an exact headword whose quantities rule out every parse (e.g. puellā typed, only nominative known) keeps its row
+    return exact.concat(forms, prefix);
+  }
+  let LOOSE = false;
+  function groupText(r, max){
+    const typed = (r.form || '').normalize('NFC').toLowerCase();
+    const many = r.groups.length > 1;
+    return r.groups.map(g => {
+      const show = many || g.form.toLowerCase() !== typed;
+      const labs = g.labels.slice(0, max).join('; ') + (g.labels.length > max ? ' +' + (g.labels.length - max) + ' more' : '');
+      return (show ? g.form + ': ' : '') + labs;
+    }).join(' · ') + (r.note || '');
+  }
+
+  const SECTION = {head:'Dictionary entry', form:'Form of', prefix:'Headwords starting with “%”'};
+  function renderList(){
+    const rows = shown;
+    const nForms = rows.filter(r => r.kind === 'form').length, nHead = rows.length - nForms;
+    countEl.textContent = !rows.length ? 'No matches'
+      : (nForms ? nForms + (nForms === 1 ? ' possible lemma' : ' possible lemmas') + (nHead ? ' · ' : '') : '') + (nHead ? nHead + (nHead === 1 ? ' headword' : ' headwords') : '');
+    if(!rows.length){
+      list.innerHTML = '<li class="empty">Nothing found for “' + esc(q.value.trim()) + '”. Check the spelling. Rare or irregular forms may not be recognized yet, so try the dictionary form if you know it.' + (M ? '' : ' (Form lookup is still loading.)') + '</li>';
+      return;
+    }
+    let html = LOOSE ? '<li class="loose">No form matches these vowel lengths exactly, so these matches ignore macrons.</li>' : '', last = null;
+    rows.forEach((r, i) => {
+      if(r.kind !== last){
+        const title = r.kind === 'prefix' ? SECTION.prefix.replace('%', esc(q.value.trim())) : r.kind === 'form' ? 'Could be a form of' : (rows.filter(x=>x.kind==='head').length > 1 ? 'Dictionary entries' : 'Dictionary entry');
+        html += '<li class="sec"><h2>' + title + '</h2></li>'; last = r.kind;
+      }
+      const R = r.row;
+      const sub = r.groups ? '<span class="parse">' + esc(groupText(r, 2)) + '</span>' : '';
+      html += '<li><button type="button" data-i="'+i+'" aria-current="'+(R[2]===currentId)+'">' +
+        '<span class="hw">'+esc(R[0])+(R[4]?'<sup>'+R[4]+'</sup>':'')+'</span>' + sub +
+        '<span class="gl">'+(R[3]?esc(R[3]):'&nbsp;')+'</span></button></li>';
+    });
+    list.innerHTML = html;
+  }
+
+  // ---------- focus view: meanings + when they apply ----------
+  let VIEW = 'full', CUR = null;
+  try{ VIEW = localStorage.getItem('ls-view') === 'focus' ? 'focus' : 'full'; }catch(_){}
+  const SKIP = '.cit,.l,cite,.et,.af,.pc,.pg,.gk,em.g,.formnote';
+  const ABBR = new Set('gen. dat. acc. abl. voc. nom. loc. plur. sing. perf. fut. inf. imp. imper. sq. sqq. fin. init. al. adj. adjj. adv. subst. absol. pass. act. dep. neutr. fem. masc. esp. poet. trop. lit. transf. ib. id. cf. prep. conj. part. comp. sup. praes. pres. subj. ind. constr. freq. dim. etc. i. e.'.split(' '));
+  function isGloss(el){
+    if(el.closest(SKIP)) return null;
+    const t = el.textContent.replace(/\s+/g, ' ').trim().replace(/^[,;:]+|[,;:]+$/g, '').trim();
+    if(t.length < 3 || t.startsWith('(')) return null;
+    if(t.replace(/\.$/, '').includes('.')) return null;
+    if(t.endsWith('.') && t.length < 8 && (/^[A-Z]/.test(t) || ABBR.has(t.toLowerCase()))) return null;
+    if(!/[a-z]{3}/.test(t)) return null;
+    if(isLatin(t)) return null;
+    return t.replace(/\.$/, '');
+  }
+  // an italic phrase is Latin (not an English meaning) if every word is a Latin headword or a recognised form
+  const EN = new Set('a an the to of in on at by for with and or but not be is are was his her its their one some any as from into that this'.split(' '));
+  function isLatin(t){
+    const words = t.toLowerCase().split(/[\s,;]+/).filter(Boolean);
+    if(!words.length || words.length > 4) return false;
+    return words.every(w => {
+      if(EN.has(w)) return false;
+      const n = norm(w); if(!n) return true;
+      return HEADSET.has(n) || (M && analyzeRaw(n, null, false).length > 0);
+    });
+  }
+  function context(p){
+    let out = '';
+    for(const n of p.childNodes){
+      if(n.nodeType === 3){ out += n.textContent; continue; }
+      if(n.nodeType !== 1) continue;
+      if(n.matches('.n')) continue;
+      if(n.matches('.gk')){ out = out.replace(/,[^,()]*$/, ','); continue; }   // "like the Homeric [Greek]" → drop the clause
+      if(n.matches('.et,.af,.pc,.pg')) continue;
+      if(n.matches('em.g,.u')){ out += n.textContent; continue; }
+      if(n.matches('i') && !isGloss(n)){ out += n.textContent; continue; }
+      break;
+    }
+    out = out.replace(/\s+/g, ' ');
+    let prev; do{ prev = out; out = out.replace(/\([^()]*\)/g, ''); }while(out !== prev);   // drop asides
+    if(out.includes('(')) out = out.slice(0, out.lastIndexOf('('));                        // and a cut-off one
+    out = out.replace(/\s+([,;:.])/g, '$1').replace(/\s+/g, ' ').replace(/^[\s,;:.—)(=]+|[\s,;:—(=]+$/g, '').trim();
+    for(let k = 0; k < 3; k++) out = out.replace(/[\s,]+(?:of|the|a|an|to|in|with|like|by|for|from|as|and|or)$/i, '').replace(/[\s,;:—(=]+$/, '');
+    if(!/[A-Za-z]{2}/.test(out)) return '';
+    return out.length > 90 ? out.slice(0, 88).replace(/\s\S*$/, '') + '…' : out;
+  }
+  function focusHTML(html){
+    const tpl = document.createElement('template'); tpl.innerHTML = html;
+    const lines = []; let total = 0;
+    tpl.content.querySelectorAll('p').forEach((p, idx) => {
+      if(p.classList.contains('af')) return;
+      const lvl = +((p.className.match(/s(\d)/) || [0, 1])[1]);
+      const glosses = [];
+      p.querySelectorAll('i').forEach(i => { const g = isGloss(i); if(g && !glosses.includes(g)) glosses.push(g); });
+      total += glosses.length;
+      if(lvl === 0){
+        const hw = p.querySelector('b'); const gram = [...p.querySelectorAll('em.g')].filter(e => !e.closest(SKIP.replace('em.g,', ''))).map(e => e.textContent.trim());
+        lines.push('<p class="fhead"><b>' + esc(hw ? hw.textContent : '') + '</b>' + (gram.length ? ', <span class="g">' + esc(gram.join(', ')) + '</span>' : '') + '</p>');
+        if(glosses.length) lines.push('<p class="f l1"><span class="m">' + glosses.map(esc).join('</span>; <span class="m">') + '</span></p>');
+        return;
+      }
+      const lab = p.querySelector(':scope > .n');
+      const ctx = context(p);
+      const derived = [...p.querySelectorAll('b[id]')].filter(b => !b.closest(SKIP)).map(b => {
+        let g = '', n = b.nextSibling;
+        while(n && (n.nodeType === 3 ? /^[\s,]*$/.test(n.textContent) : n.matches && n.matches('em.g'))){ if(n.nodeType === 1) g += (g ? ', ' : '') + n.textContent.trim(); n = n.nextSibling; }
+        return '<b id="' + b.id + '" class="dw">' + esc(b.textContent) + '</b>' + (g ? ', <span class="g">' + esc(g) + '</span>' : '');
+      });
+      if(!glosses.length && !ctx && !derived.length) return;
+      lines.push('<p class="f l' + Math.min(lvl, 5) + '">' + (lab ? '<span class="n">' + esc(lab.textContent) + '</span> ' : '') +
+        (derived.length ? derived.join(' · ') + ' ' : '') +
+        (ctx ? '<span class="ctx">' + esc(ctx) + '</span>' : '') +
+        (ctx && glosses.length ? ' <span class="dash">—</span> ' : '') +
+        (glosses.length ? '<span class="m">' + glosses.map(esc).join('</span>; <span class="m">') + '</span>' : '') + '</p>');
+    });
+    return total ? '<div class="focus">' + lines.join('') + '</div>' : null;
+  }
+
+  // ---------- abbreviation glossary ----------
+  const ABBR_T = {
+    'v. a.':'verb, active: transitive (takes a direct object)', 'v. n.':'verb, neuter: intransitive (no direct object)',
+    'v. dep.':'deponent verb: passive forms, active meaning', 'v. freq.':'frequentative verb: repeated or intensive action',
+    'v. inch.':'inchoative verb: “to begin to …”', 'v. impers.':'impersonal verb (used in the 3rd person, no personal subject)',
+    'v. desid.':'desiderative verb: “to want to …”', 'P. a.':'participial adjective: a participle used as an ordinary adjective',
+    'adj.':'adjective', 'adjj.':'adjectives', 'adv.':'adverb', 'subst.':'substantive: used as a noun', 'prep.':'preposition',
+    'conj.':'conjunction', 'interj.':'interjection', 'pron.':'pronoun', 'num.':'numeral', 'part.':'participle',
+    'dim.':'diminutive (a “little” form of a word)', 'dimin.':'diminutive (a “little” form of a word)',
+    'comp.':'comparative', 'sup.':'superlative (or supine)', 'gen.':'genitive', 'dat.':'dative', 'acc.':'accusative',
+    'abl.':'ablative', 'voc.':'vocative', 'nom.':'nominative', 'loc.':'locative', 'sing.':'singular', 'plur.':'plural',
+    'masc.':'masculine', 'fem.':'feminine', 'neutr.':'neuter', 'comm.':'common gender: masculine or feminine',
+    'act.':'active', 'pass.':'passive', 'dep.':'deponent', 'absol.':'absolutely: used without an object',
+    'constr.':'construction: the cases or clauses the word is used with', 'trans.':'transitive', 'intr.':'intransitive',
+    'impers.':'impersonal', 'rel.':'relative', 'interrog.':'interrogative', 'indef.':'indefinite', 'demonstr.':'demonstrative',
+    'pers.':'person / personal', 'fut.':'future', 'perf.':'perfect', 'pf.':'perfect', 'praes.':'present', 'pres.':'present',
+    'imperf.':'imperfect', 'plpf.':'pluperfect', 'inf.':'infinitive', 'imp.':'imperative (sometimes imperfect)',
+    'imper.':'imperative', 'subj.':'subjunctive', 'ind.':'indicative', 'indic.':'indicative', 'ger.':'gerund',
+    'gerund.':'gerundive', 'sync.':'syncopated: a shortened form (amasti for amavisti)', 'contr.':'contracted form',
+    'collat.':'collateral: a parallel form of the same word', 'freq.':'frequentative, or frequently',
+    'inch.':'inchoative: “to begin to …”', 'tempp.':'tenses', 'perff.':'perfects', 'fr.':'from',
+    'lit.':'literally: the basic, physical meaning', 'trop.':'figuratively (a “turned”, non-literal use)',
+    'transf.':'transferred: the meaning extended to a new kind of thing', 'fig.':'figuratively',
+    'poet.':'poetic: found mostly in poetry', 'esp.':'especially', 'in gen.':'in general', 'in partic.':'in particular',
+    'meton.':'by metonymy: naming something by a thing closely linked to it', 'ellipt.':'elliptically: with a word left out',
+    'pregn.':'in a “pregnant” sense: more is implied than said', 'rhet.':'rhetorical term', 'jurid.':'legal term',
+    'milit.':'military term', 't. t.':'technical term', 'prov.':'proverbial', 'ante-class.':'before the classical period (before about 80 BC)',
+    'post-class.':'after the classical period (after about AD 14)', 'post-Aug.':'after the age of Augustus (after AD 14)',
+    'class.':'classical (Cicero, Caesar, Virgil, Horace…)', 'late Lat.':'late Latin', 'eccl.':'church Latin',
+    'opp.':'opposed to: the opposite is …', 'syn.':'synonym(s)', 'sc.':'scilicet: “namely”, supply the word that follows',
+    'i. e.':'id est: “that is”', 'e. g.':'for example', 'cf.':'compare', 'v.':'vide: see', 'q. v.':'quod vide: look up that word',
+    's. v.':'sub voce: under that headword', 'h. v.':'this word', 'v. h. v.':'see this word', 'l. c.':'loco citato: in the passage already cited',
+    'ib.':'ibidem: in the same work', 'id.':'idem: the same author', 'ap.':'apud: quoted in (a later author)',
+    'al.':'et alibi: and elsewhere', 'sq.':'and the following (line or section)', 'sqq.':'and those following',
+    'fin.':'near the end of the passage', 'init.':'near the beginning of the passage', 'med.':'in the middle of the passage',
+    'saep.':'saepe: often, many more examples exist', 'perh.':'perhaps', 'prob.':'probably', 'dub.':'doubtful',
+    'Sanscr.':'Sanskrit', 'Gr.':'Greek', 'Germ.':'German', 'Engl.':'English', 'Lat.':'Latin', 'Goth.':'Gothic',
+    'It.':'Italian', 'Lith.':'Lithuanian', 'Etym.':'etymology', 'kindr.':'kindred: related to',
+    'var. lect.':'a variant reading in the manuscripts', 'MSS.':'manuscripts', 'edd.':'editors / editions',
+    'philos.':'philosophical', 'Epp.':'letters (epistulae)', 'incl.':'including', 'redupl.':'reduplicated (first syllable doubled, as in tetuli)',
+    'prop.':'properly: in the original sense', 'orig.':'originally', 'signif.':'meaning', 'cogn.':'cognate: from the same root',
+    'patr.':'patronymic: “son/daughter of …”', 'poss.':'possessive', 'abbrev.':'abbreviated', 'distrib.':'distributive (numeral)',
+    'ord.':'ordinal (numeral)', 'card.':'cardinal (numeral)', 'adverb.':'adverbial', 'corresp.':'corresponding', 'equiv.':'equivalent',
+    'etc.':'et cetera: and so on', 'partic.':'particular (in partic. = in particular)', 'lang.':'language: usage in a field (milit. lang. = military usage)',
+    'cr.':'critical (N. cr. = critical note)', 'praef.':'preface', 'prooem.':'preface (prooemium)', 'prol.':'prologue', 'epil.':'epilogue',
+    'postclass.':'post-classical: after about AD 14', 'anteclass.':'ante-classical: before about 80 BC', 'foll.':'following', 'follg.':'following',
+    'per.':'period (Aug. per. = the Augustan period)', 'Aug. per.':'the Augustan period (27 BC – AD 14)', 'i. q.':'idem quod: “the same as”',
+    'l. l.':'loco laudato: in the passage already cited', 'h. l.':'hoc loco: in this passage', 'read.':'reading: what the manuscripts have',
+    'p.':'page', 'pp.':'pages', 'ed.':'edition, or edited by', 'edit.':'edition', 'editt.':'editions', 'no.':'number', 'vol.':'volume', 'tom.':'volume (tomus)',
+    'col.':'column', 'lin.':'line', 'ch.':'chapter', 'lib.':'book (liber)', 'tit.':'title', 'fragm.':'fragment', 'tab.':'table (tabula)',
+    'abstr.':'abstract: an idea or quality, not a physical thing', 'concr.':'concrete: a physical thing or person, not an idea',
+    'usu.':'usually', 'gram.':'grammatical term / the grammarians', 'gramm.':'grammatical term / the grammarians',
+    'qs.':'quasi: as if, as it were', 'inanim.':'inanimate: of things, not people or animals', 'art.':'article: a dictionary entry',
+    'transl.':'translation, translated', 'access.':'accessory: secondary, additional', 'mal. part.':'in malam partem: in a bad sense',
+    'bon. part.':'in bonam partem: in a good sense', 'indecl.':'indeclinable: the ending never changes', 'preced.':'preceding (the word or entry before)',
+    'lemm.':'lemma: the heading word of a commentary note', 'histt.':'historians', 'histor.':'historical / the historians',
+    'obj.':'object', 'obj.-clause':'object clause', 'rel.-clause':'relative clause', 'subj.-clause':'subject clause', 'inf.-clause':'infinitive clause',
+    'interrog.-clause':'interrogative (question) clause', 'predic.':'predicate', 'predic.-clause':'predicate clause',
+    'medic.':'medical term', 'advv.':'adverbs', 'mid.':'middle: reflexive sense, doing something to or for oneself',
+    'verb.':'verbal', 'finit.':'finite (verb. finit. = a finite verb, with a personal ending)', 'occur.':'occurs / occurrence',
+    'diff.':'difference, different', 'relig.':'religious term', 'collect.':'collective: a singular that refers to a group',
+    'inscrr.':'inscriptions', 'exs.':'examples', 'ex.':'example', 'pluperf.':'pluperfect', 'predom.':'predominant(ly)', 'substt.':'substantives (nouns)',
+    'arch.':'archaic', 'com.':'comic: the comic poets (Plautus, Terence)', 'comic.':'comic: the comic poets (Plautus, Terence)',
+    'intens.':'intensive: strengthens the meaning', 'v. l.':'varia lectio: a different reading in some manuscripts',
+    'colloq.':'colloquial: everyday, conversational', 'analog.':'analogy, analogous', 'viz.':'videlicet: namely', 'elsewh.':'elsewhere',
+    'archit.':'architectural term', 'trisyl.':'three syllables (in poetry)', 'dissyl.':'two syllables (in poetry)', 'quadrisyl.':'four syllables (in poetry)',
+    'rhetor.':'rhetorical term', 'verbb.':'verbs (lusus verbb. = a pun)', 'orthog.':'orthography: spelling', 'orthogr.':'orthography: spelling',
+    'infra.':'below', 'supra.':'above', 'neg.':'negative, or with a negative', 'obsol.':'obsolete', 'obs.':'obsolete',
+    'pronom.':'pronominal: used like a pronoun', 'propr.':'proper (nom. propr. = a proper name)', 'nom. propr.':'nomen proprium: a proper name',
+    's. h. v.':'sub hac voce: under this word', 'distr.':'distributive (numeral: singuli, bini …)', 'reflex.':'reflexive',
+    'prepp.':'prepositions', 'praep.':'preposition', 'mercant.':'mercantile: business and trade', 'judic.':'judicial: legal',
+    'econom.':'economic: farming and household management', 'heterocl.':'heteroclite: a noun with forms from more than one declension',
+    'derivv.':'derivatives: words formed from this one', 'deriv.':'derivative', 'hibr.':'hybrid: a word formed from Latin and Greek',
+    'hybr.':'hybrid: a word formed from Latin and Greek', 'vv.':'verses (lines)', 'inst.':'instead',
+    'conject.':'conjecture: an editor’s guess at the text', 'polit.':'political', 'posit.':'positive degree (of an adjective)',
+    'temp.':'temporal: of time', 'ellips.':'ellipsis: a word left out', 'infreq.':'infrequent',
+    'parag.':'paragogic: with an extra syllable (e.g. infinitive -ier)', 'paragog.':'paragogic: with an extra syllable (e.g. infinitive -ier)',
+    'syll.':'syllable', 'appel.':'appellative: a common noun', 'ep.':'letter (epistula)', 'ref.':'reference, refers to',
+    'inc.':'incertus: author or play unknown', 'lect.':'reading (lectio) in the manuscripts', 'accs.':'accusatives', 'accus.':'accusative',
+    'decl.':'declension', 'uncontr.':'uncontracted: the full, unshortened form', 'prim.':'primary, original', 'pronn.':'pronouns',
+    'specif.':'specifically', 'locat.':'locative', 'relat.':'relative', 'introd.':'introduction', 'metaph.':'metaphorically',
+    'partit.':'partitive: “part of …” (partit. gen. = genitive of the whole)', 'pub.':'public', 'imperat.':'imperative',
+    'compp.':'compounds', 'irreg.':'irregular', 'correl.':'correlative: paired words like tam … quam', 'a. d.':'ante diem: “… days before” (in dates)',
+    'neut.':'neuter', 'pl.':'plural', 'syncop.':'syncopated: a shortened form', 'pros.':'prosody: syllable length and meter',
+    'met.':'by metonymy / metaphorically', 'appos.':'apposition', 'doub.':'doubtful', 'naut.':'nautical term', 'var.':'variant',
+    'math.':'mathematical term', 'iid.':'iidem: the same authors',
+    'lusus verbb.':'a play on words (pun)', 'Vulg.':'the Vulgate (Latin Bible)', 'Inscr.':'an inscription'
+  };
+  const GENDER_T = {'m.':'masculine', 'f.':'feminine', 'n.':'neuter', 'c.':'common gender'};
+  const akey = k => k.toLowerCase().replace(/\s+/g, '');
+  const AB_LC = new Map(Object.entries(ABBR_T).map(([k, v]) => [akey(k), [k, v]]));
+  const abKeys = [...AB_LC.values()].map(e => e[0].toLowerCase()).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\\\. /g, '\\.\\s*'));
+  const AB_RE = new RegExp('(?<![A-Za-zāēīōūăĕĭŏŭ])(' + abKeys.join('|') + ')(?![A-Za-z])', 'gi');
+  const AB_SKIP = 'cite,.gk,.l,.formnote,b,.n,.ab,.fnote';
+  function lookupAb(t){
+    const e = AB_LC.get(akey(t)); if(!e) return null;
+    if(e[0].replace(/[^A-Za-z]/g, '').length <= 1 && e[0] !== t) return null;   // p. but not P.
+    return e[1];
+  }
+  function markAbbr(root){
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: n => (n.parentElement && n.parentElement.closest(AB_SKIP)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+    const nodes = []; let n; while((n = walker.nextNode())) nodes.push(n);
+    for(const node of nodes){
+      const txt = node.textContent;
+      const inGram = node.parentElement && node.parentElement.closest('em.g');
+      const re = inGram ? new RegExp(AB_RE.source + '|(?<![A-Za-z])([mfnc]\\.)(?![A-Za-z])', 'gi') : new RegExp(AB_RE.source, 'gi');
+      if(!re.test(txt)) continue;
+      re.lastIndex = 0;
+      const frag = document.createDocumentFragment(); let last = 0, m;
+      while((m = re.exec(txt))){
+        const k = m[0]; const t = lookupAb(k) || (inGram ? GENDER_T[k.toLowerCase()] : null);
+        if(!t){ continue; }
+        frag.append(txt.slice(last, m.index));
+        const sp = document.createElement('span'); sp.className = 'ab'; sp.tabIndex = 0; sp.textContent = k; sp.dataset.t = t;
+        frag.append(sp); last = m.index + k.length;
+      }
+      if(last === 0) continue;
+      frag.append(txt.slice(last)); node.replaceWith(frag);
+    }
+  }
+  const tip = document.createElement('div'); tip.id = 'abtip'; tip.hidden = true; tip.setAttribute('role', 'tooltip'); document.body.append(tip);
+  let tipFor = null;
+  function showTip(el){
+    tipFor = el; tip.innerHTML = '<b>' + esc(el.textContent) + '</b> ' + esc(el.dataset.t); tip.hidden = false;
+    const r = el.getBoundingClientRect(), w = Math.min(300, window.innerWidth - 24);
+    tip.style.maxWidth = w + 'px';
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let x = Math.max(12, Math.min(r.left + r.width / 2 - tw / 2, window.innerWidth - tw - 12));
+    let y = r.top - th - 8; if(y < 8) y = r.bottom + 8;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip(){ tip.hidden = true; tipFor = null; }
+  entryEl.addEventListener('mouseover', e => { const a = e.target.closest('.ab'); if(a) showTip(a); });
+  entryEl.addEventListener('mouseout', e => { if(e.target.closest('.ab')) hideTip(); });
+  entryEl.addEventListener('focusin', e => { const a = e.target.closest('.ab'); if(a) showTip(a); });
+  entryEl.addEventListener('focusout', hideTip);
+  entryEl.addEventListener('click', e => { const a = e.target.closest('.ab'); if(a){ tipFor === a && !tip.hidden ? hideTip() : showTip(a); } });
+  document.addEventListener('scroll', hideTip, true);
+
+  function paint(){
+    if(!CUR) return;
+    const f = VIEW === 'focus' ? focusHTML(CUR.html) : null;
+    entryEl.classList.toggle('is-focus', !!f);
+    entryEl.innerHTML = CUR.note + (f || CUR.html) + (VIEW === 'focus' && !f ? '<p class="fnote">This entry has no outline of meanings, so the full entry is shown.</p>' : '');
+    markAbbr(entryEl);
+    document.querySelectorAll('#view [data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === VIEW ? 'true' : 'false'));
+    $('#hidewrap').hidden = VIEW === 'focus';
+    $('#eid').hidden = VIEW === 'focus';
+  }
+
+  async function openEntry(item){
+    const row = item.row;
+    currentId = row[2];
+    list.querySelectorAll('button').forEach(b => b.setAttribute('aria-current', shown[+b.dataset.i].row[2] === currentId));
+    $('#eid').textContent = '';
+    entryEl.innerHTML = '<p class="loading">Opening ' + esc(row[0]) + '…</p>';
+    try{
+      const d = await loadLetter(row[5]);
+      if(currentId !== row[2]) return;
+      const [pid, anchor] = row[2].split('.');
+      let note = '';
+      if(item.groups && (item.kind === 'form' || (MACRONS && hasLong(tokenize(item.form || ''))) || item.groups.some(g => g.form.toLowerCase() !== (item.form || '').toLowerCase()))){
+        note = '<div class="formnote"><b>' + esc(item.form) + '</b> ' + (item.kind === 'form' ? 'can be a form of' : 'is a form of') + ' <b>' + esc(row[0]) + '</b>' + esc(item.note) + ':<ul>' +
+          item.groups.map(g => g.labels.map(l => '<li>' + (item.groups.length > 1 || g.form.toLowerCase() !== (item.form || '').toLowerCase() ? '<b class="qf">' + esc(g.form) + '</b> ' : '') + esc(l) + '</li>').join('')).join('') + '</ul></div>';
+      }
+      CUR = {html: d[pid] || '<p>Entry not found.</p>', note};
+      paint();
+      $('#eid').textContent = 'perseus ' + pid;
+      const art = entryEl.parentElement;
+      art.scrollTop = 0;
+      const tgt = anchor && entryEl.querySelector('#' + anchor);
+      if(tgt){
+        tgt.classList.add('target');
+        const p = tgt.closest('p') || tgt;
+        const nb = entryEl.querySelector('.formnote');
+        if(nb){ p.before(nb); }
+        art.scrollTop = Math.max(0, (nb || p).getBoundingClientRect().top - art.getBoundingClientRect().top + art.scrollTop - 12);
+      }
+      try{ history.replaceState(null, '', '#' + row[2]); }catch(e){}
+    }catch(e){
+      entryEl.innerHTML = '<p>Couldn’t load the “' + row[5].toUpperCase() + '” section of the dictionary. Check your connection and select the word again.</p>';
+    }
+  }
+
+  function refresh(autoOpen){
+    shown = search(q.value); sel = shown.length ? 0 : -1; renderList();
+    if(autoOpen && shown.length && shown[0].kind !== 'prefix') openEntry(shown[0]);
+  }
+
+
+  // ---------- macron keys and mode ----------
+  function setHint(){
+    $('#hint').innerHTML = MACRONS
+      ? 'Macron sensitive: <i>puella</i> ≠ <i>puellā</i> · type a vowel then <kbd>=</kbd> for a macron · <i>tulit</i> finds <i>ferō</i>'
+      : 'Macrons ignored, as in most printed texts · <i>j</i> = <i>i</i>, <i>v</i> = <i>u</i> · <i>tulit</i> finds <i>ferō</i>';
+    $('#macmode').setAttribute('aria-pressed', MACRONS ? 'true' : 'false');
+  }
+  function insertAtCaret(txt){
+    const a = q.selectionStart ?? q.value.length, b = q.selectionEnd ?? a;
+    q.value = q.value.slice(0, a) + txt + q.value.slice(b);
+    q.setSelectionRange(a + txt.length, a + txt.length);
+    q.dispatchEvent(new Event('input'));
+  }
+  document.querySelector('.mkeys').addEventListener('mousedown', e => { if(e.target.closest('[data-v]')) e.preventDefault(); });
+  document.querySelector('.mkeys').addEventListener('click', e => {
+    const b = e.target.closest('[data-v]'); if(!b) return;
+    q.focus();
+    const v = b.dataset.v, a0 = q.selectionStart ?? q.value.length;
+    // right after the same plain vowel: turn it long instead of adding another
+    if(a0 && q.selectionEnd === a0 && MAC[q.value[a0 - 1]] === v){ q.setSelectionRange(a0 - 1, a0); }
+    insertAtCaret(v);
+  });
+  q.addEventListener('beforeinput', e => {
+    if(e.inputType !== 'insertText' || e.data !== '=') return;
+    const a = q.selectionStart, prev = q.value[a - 1];
+    if(a && MAC[prev] && q.selectionEnd === a){
+      e.preventDefault();
+      q.value = q.value.slice(0, a - 1) + MAC[prev] + q.value.slice(a);
+      q.setSelectionRange(a, a);
+      q.dispatchEvent(new Event('input'));
+    }
+  });
+  $('#macmode').addEventListener('click', () => {
+    MACRONS = !MACRONS;
+    try{ localStorage.setItem('ls-macrons', MACRONS ? 'on' : 'off'); }catch(_){}
+    setHint(); refresh(true);
+  });
+  setHint();
+  let t;
+  q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => refresh(true), 120); });
+  q.addEventListener('keydown', e => {
+    if(!shown.length) return;
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      sel = Math.max(0, Math.min(shown.length - 1, sel + (e.key === 'ArrowDown' ? 1 : -1)));
+      openEntry(shown[sel]);
+      const b = list.querySelector('[data-i="'+sel+'"]'); if(b) b.scrollIntoView({block:'nearest'});
+    } else if(e.key === 'Enter'){
+      e.preventDefault(); openEntry(shown[Math.max(sel,0)]);
+    }
+  });
+  list.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    sel = +b.dataset.i; openEntry(shown[sel]);
+  });
+  // ---------- hide modes ----------
+  let HIDE = {};
+  try{ HIDE = JSON.parse(localStorage.getItem('ls-hide') || '{}') || {}; if(localStorage.getItem('ls-hide-cites')) HIDE.cites = true; }catch(_){ HIDE = {}; }
+  function applyHide(){
+    document.querySelectorAll('#hide [data-hide]').forEach(b => {
+      const k = b.dataset.hide;
+      b.setAttribute('aria-pressed', HIDE[k] ? 'true' : 'false');
+      entryEl.classList.toggle('hide-' + k, !!HIDE[k]);
+    });
+  }
+  $('#hide').addEventListener('click', e => {
+    const b = e.target.closest('[data-hide]'); if(!b) return;
+    HIDE[b.dataset.hide] = !HIDE[b.dataset.hide];
+    applyHide();
+    try{ localStorage.setItem('ls-hide', JSON.stringify(HIDE)); localStorage.removeItem('ls-hide-cites'); }catch(_){}
+  });
+  applyHide();
+  $('#view').addEventListener('click', e => {
+    const b = e.target.closest('[data-view]'); if(!b) return;
+    VIEW = b.dataset.view;
+    try{ localStorage.setItem('ls-view', VIEW); }catch(_){}
+    paint();
+    const tgt = entryEl.querySelector('.target'); if(tgt) tgt.scrollIntoView({block:'center'});
+  });
+  document.querySelectorAll('#view [data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === VIEW ? 'true' : 'false'));
+  $('#hidewrap').hidden = VIEW === 'focus';
+
+  const pIndex = fetch('data/index.json').then(r => r.json());
+  const pMorph = fetch('data/morph.json').then(r => r.json()).catch(() => null);
+  pIndex.then(async data => {
+    INDEX = data; for(const r of INDEX){ BYID.set(r[2], r); HEADSET.add(r[1]); }
+    $('#stat').textContent = INDEX.length.toLocaleString() + ' headwords';
+    const h = (location.hash || '').slice(1);
+    const fromHash = h && BYID.get(h);
+    if(fromHash){
+      q.value = fromHash[0].normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z]/g,'');
+      refresh(false); openEntry({row: fromHash, kind:'head'});
+    }
+    M = await pMorph;
+    if(M) $('#stat').textContent = INDEX.length.toLocaleString() + ' headwords · ' + Object.keys(M.S).length.toLocaleString() + ' stems';
+    refresh(!fromHash);
+  }).catch(() => {
+    $('#stat').textContent = 'Headword list failed to load';
+    entryEl.innerHTML = '<p>The headword list didn’t load. Reload the page to try again.</p>';
+  });
+})();
+</script>
+
+</body>
+</html>
