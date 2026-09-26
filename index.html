@@ -228,13 +228,22 @@ footer a{color:var(--accent)}
   let shown = [], sel = -1, currentId = null, currentForm = null;
 
   function norm(s){
-    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
       .replace(/j/g,'i').replace(/v/g,'u').replace(/æ/g,'ae').replace(/œ/g,'oe').replace(/[^a-z]/g,'');
   }
   const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+  // the data folder may be uploaded as "data" or "Data" (web hosts are case-sensitive)
+  let DATA_DIR = null;
+  async function getData(name){
+    if(DATA_DIR) return fetch(DATA_DIR + name);
+    for(const dir of ['data/', 'Data/', 'DATA/']){
+      try{ const r = await fetch(dir + name); if(r.ok){ DATA_DIR = dir; return r; } }catch(_){}
+    }
+    return fetch('data/' + name);
+  }
   function loadLetter(l){
-    if(!letters[l]) letters[l] = fetch('data/' + l + '.json').then(r => {
+    if(!letters[l]) letters[l] = getData(l + '.json').then(r => {
       if(!r.ok) throw new Error('HTTP ' + r.status); return r.json();
     }).catch(e => { delete letters[l]; throw e; });
     return letters[l];
@@ -254,8 +263,8 @@ footer a{color:var(--accent)}
   function tokenize(raw){
     const toks = [];
     for(const c of raw.normalize('NFD')){
-      if(c === '̄'){ if(toks.length) toks[toks.length - 1].long = true; continue; }
-      if(/[̀-ͯ]/.test(c)) continue;
+      if(c === '\u0304'){ if(toks.length) toks[toks.length - 1].long = true; continue; }
+      if(/[\u0300-\u036f]/.test(c)) continue;
       const parts = {'æ':'ae','Æ':'Ae','œ':'oe','Œ':'Oe'}[c] || c;
       for(const ch of parts){
         let n = ch.toLowerCase(); if(n === 'j') n = 'i'; if(n === 'v') n = 'u';
@@ -329,9 +338,9 @@ footer a{color:var(--accent)}
   function headFits(disp, toks){
     const pat = [];
     for(const c of disp.normalize('NFD')){
-      if(c === '̄'){ if(pat.length) pat[pat.length - 1] = 'l'; continue; }
-      if(c === '̆'){ if(pat.length) pat[pat.length - 1] = 's'; continue; }
-      if(/[̀-ͯ]/.test(c)) continue;
+      if(c === '\u0304'){ if(pat.length) pat[pat.length - 1] = 'l'; continue; }
+      if(c === '\u0306'){ if(pat.length) pat[pat.length - 1] = 's'; continue; }
+      if(/[\u0300-\u036f]/.test(c)) continue;
       for(const ch of ({'æ':'ae','œ':'oe'}[c.toLowerCase()] || c)) if(/[a-z]/i.test(ch)) pat.push('?');
     }
     return pat.length !== toks.length || fits(pat.join(''), toks, 0);
@@ -753,15 +762,15 @@ footer a{color:var(--accent)}
   document.querySelectorAll('#view [data-view]').forEach(b => b.setAttribute('aria-pressed', b.dataset.view === VIEW ? 'true' : 'false'));
   $('#hidewrap').hidden = VIEW === 'focus';
 
-  const pIndex = fetch('data/index.json').then(r => r.json());
-  const pMorph = fetch('data/morph.json').then(r => r.json()).catch(() => null);
+  const pIndex = getData('index.json').then(r => r.json());
+  const pMorph = getData('morph.json').then(r => r.json()).catch(() => null);
   pIndex.then(async data => {
     INDEX = data; for(const r of INDEX){ BYID.set(r[2], r); HEADSET.add(r[1]); }
     $('#stat').textContent = INDEX.length.toLocaleString() + ' headwords';
     const h = (location.hash || '').slice(1);
     const fromHash = h && BYID.get(h);
     if(fromHash){
-      q.value = fromHash[0].normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Za-z]/g,'');
+      q.value = fromHash[0].normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z]/g,'');
       refresh(false); openEntry({row: fromHash, kind:'head'});
     }
     M = await pMorph;
